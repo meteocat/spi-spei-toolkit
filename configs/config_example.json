@@ -1,0 +1,11 @@
+{
+"indices":[1,3,6,9,12,18,24,36],
+"distribution_name":{"SPEI":"GaussianMixture","SPI":"gamma"},
+"ref_params_period":"2000-2020",
+"workdir":"/path/to/workdir",
+"ppt_dir":"/path/to/ppt_data",
+"eto_dir":"/path/to/eto_data",
+"params_dir":"/path/to/params",
+"dir_mask":"/path/to/mask/nan_mask.nc",
+"log_dir":"/path/to/logs"
+}
