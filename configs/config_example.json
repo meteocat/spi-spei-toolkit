@@ -3,9 +3,9 @@
 "distribution_name":{"SPEI":"GaussianMixture","SPI":"gamma"},
 "ref_params_period":"2000-2020",
 "workdir":"/path/to/workdir",
-"ppt_dir":"/path/to/ppt_data",
-"eto_dir":"/path/to/eto_data",
-"params_dir":"/path/to/params",
-"dir_mask":"/path/to/mask/nan_mask.nc",
+"ppt_file":"/path/to/ppt_dir/{year}/{month}/ppt_{date}.nc",
+"eto_file":"/path/to/eto_dir/{year}/{month}/eto_{date}.nc",
+"params_dir":"/path/to/parameters",
+"dir_mask":"/path/to/nan_mask.nc",
 "log_dir":"/path/to/logs"
 }

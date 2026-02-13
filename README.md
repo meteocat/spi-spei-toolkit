@@ -62,20 +62,29 @@ Example:
 "distribution_name":{"SPEI":"GaussianMixture","SPI":"gamma"},
 "ref_params_period":"2000-2020",
 "workdir":"/path/to/workdir",
-"ppt_file":"/path/to/ppt_file.nc",
-"eto_file":"/path/to/eto_file.nc",
-"params_dir":"/path/to/params",
-"dir_mask":"/path/to/mask/nan_mask.nc",
+"ppt_file":"/path/to/ppt_dir/{year}/{month}/ppt_{date}.nc",
+"eto_file":"/path/to/eto_dir/{year}/{month}/eto_{date}.nc",
+"params_dir":"/path/to/parameters",
+"dir_mask":"/path/to/nan_mask.nc",
 "log_dir":"/path/to/logs"
 }
 ```
 
 Key parameters:
-- workdir: Project working directory.
-- ppt_file / eto_file: Paths for precipitation and evapotranspiration data.
-- ref_params_period: Reference period for fitting distributions.
-- distribution_name: Distribution type for each index (recommended: gamma for SPI and GaussianMixture for SPEI).
-- indices: Accumulation periods (in months).
+ - indices: Accumulation periods (in months) used to compute SPI and SPEI.
+- distribution_name: Statistical distribution fitted for each index (recommended: gamma for SPI and GaussianMixture for SPEI).
+- ref_params_period: Reference period (years) used to fit the statistical distributions.
+- workdir: Root working directory of the project.
+- ppt_file / eto_file: File path templates used to locate daily NetCDF files. These paths support
+dynamic placeholders:
+    - {year} → four-digit year (e.g., 2020)
+    - {month} → two-digit month (e.g., 01–12)
+    - {date} → full date string (e.g., 20200115)
+
+    This design allows users to adapt the naming convention to their own datasets and enables automated daily processing workflows.
+- params_dir: Directory where fitted distribution parameters are stored.
+- dir_mask: NetCDF mask file used to exclude invalid grid cells.
+- log_dir: Directory where log files are written.
 
 
 ## Usage
