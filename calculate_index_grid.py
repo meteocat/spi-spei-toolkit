@@ -24,7 +24,7 @@ PARSER.add_argument('-i', '--index_name',
                    help='Index name: SPI or SPEI', type=str, required=True)
 
 
-def main():
+def main(date,index_name):
     LOGGER.info(f"< Start {index_name} calculation >")
       
     ref_params_period = CONFIG["ref_params_period"]
@@ -217,4 +217,4 @@ if __name__ == "__main__":
         "spi_spei_trace"
         )      
     
-    main()
+    main(date,index_name)

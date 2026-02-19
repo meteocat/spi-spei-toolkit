@@ -23,7 +23,7 @@ PARSER.add_argument('-i', '--index_name',
                    help='Index name: SPI or SPEI', type=str, required=True)
 
 
-def main():
+def main(index_name):
     LOGGER.info(f"< Start parameter calculation for {index_name} >")
 
     # --- Paths
@@ -186,6 +186,6 @@ if __name__ == "__main__":
         "spi_spei_trace"
         ) 
 
-    main()
+    main(index_name)
 
         
