@@ -1,5 +1,8 @@
 # SPI & SPEI Calculation Toolkit
 
+![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)
+![Python](https://img.shields.io/badge/python-3.10%2B-green.svg)
+
 This repository provides a Python toolkit to compute the **Standardized Precipitation Index (SPI)** and the **Standardized Precipitation Evapotranspiration Index (SPEI)** for both point-based time series and grid-based datasets. 
 
 ---
@@ -85,6 +88,18 @@ dynamic placeholders:
 - params_dir: Directory where fitted distribution parameters are stored.
 - dir_mask: NetCDF mask file used to exclude invalid grid cells.
 - log_dir: Directory where log files are written.
+
+
+## Data requirements
+For grid-based processing, input precipitation (ppt_file) and evapotranspiration (eto_file) datasets must:
+- Be in NetCDF format
+- Share the same grid dimensions
+- Have consistent latitude and longitude coordinates
+- Use the same coordinate reference system
+- Include a valid date coordinate
+
+The toolkit concatenates daily files along the date dimension.
+If dimensions or coordinates do not match, the processing will fail or produce incorrect result
 
 
 ## Usage
