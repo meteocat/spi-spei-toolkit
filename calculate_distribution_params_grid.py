@@ -106,7 +106,7 @@ def main(index_name):
         accumulation_time = acc_time_dic[index_type]
         
         try:
-            df = sf.data_preparation_malla(data=data, 
+            df = sf.data_preparation_grid(data=data, 
                                            acc_time=accumulation_time)  
             LOGGER.info(" |  Accumulated data - ok")
         except Exception as err:

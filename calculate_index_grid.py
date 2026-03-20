@@ -104,7 +104,7 @@ def main(date,index_name):
         
         # --- Accumulation
         try:
-            acc_data = sf.data_preparation_malla(data=data,
+            acc_data = sf.data_preparation_grid(data=data,
                                                  acc_time=accumulation_time)
             LOGGER.info(" |  Accumulated data - ok")
         except Exception as err:
@@ -140,7 +140,7 @@ def main(date,index_name):
             if (index_name=="SPI"):
                 index_values = acc_data.value.groupby(
                     acc_data.date.dt.month).apply(
-                        lambda x: sf.calculate_spi_malla(
+                        lambda x: sf.calculate_spi_grid(
                             x,
                             distribution_name,
                             params.sel(month=x.date.dt.month.values[0], 
@@ -154,7 +154,7 @@ def main(date,index_name):
             elif (index_name=="SPEI"): 
                 index_values = acc_data.value.groupby(
                     acc_data.date.dt.month).apply(
-                        lambda x: sf.calculate_spei_malla(
+                        lambda x: sf.calculate_spei_grid(
                             x,
                             distribution_name, 
                             params.sel(month=x.date.dt.month.values[0],

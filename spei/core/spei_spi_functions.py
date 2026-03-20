@@ -30,7 +30,7 @@ def data_preparation(data:pd.Series,acc_time:int)->pd.Series:
 
 
 # --- Data preparation (grid)
-def data_preparation_malla(data:xr.Dataset,acc_time:int)->xr.Dataset:
+def data_preparation_grid(data:xr.Dataset,acc_time:int)->xr.Dataset:
     """
     Apply an accumulation window to grid-based data for SPI or SPEI
     calculation.
@@ -143,7 +143,7 @@ def calculate_spei(data:pd.Series,dist_name:str,params:tuple)->pd.Series:
 
 
 # --- SPEI (grid)
-def calculate_spei_malla(data:xr.DataArray,dist_name:str,
+def calculate_spei_grid(data:xr.DataArray,dist_name:str,
                          params:xr.Dataset)->xr.Dataset:
     """
     Compute the SPEI index for grid-based data.
@@ -214,7 +214,7 @@ def calculate_spi(data:pd.Series,dist_name:str,params:tuple)->pd.Series:
 
 
 # --- SPI (grid)
-def calculate_spi_malla(data:xr.DataArray,dist_name:str,
+def calculate_spi_grid(data:xr.DataArray,dist_name:str,
                         params:xr.Dataset)->pd.Series:
     """
     Compute the SPI index for grid-based data.

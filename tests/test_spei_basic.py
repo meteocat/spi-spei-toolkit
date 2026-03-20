@@ -3,19 +3,19 @@ import pandas as pd
 import xarray as xr
 
 from spei.core.spei_spi_functions import (
-    data_preparation_malla,
+    data_preparation_grid,
     fit_distribution,
     fit_gaussian_mixture,
     compute_monthly_params,
-    calculate_spi_malla,
-    calculate_spei_malla
+    calculate_spi_grid,
+    calculate_spei_grid
 )
 
 # ------------------------------------------------------------------
-# DATA PREPARATION MALLA
+# DATA PREPARATION GRID
 # ------------------------------------------------------------------
 
-def test_data_preparation_malla():
+def test_data_preparation_grid():
     dates = pd.date_range("2020-01-01", periods=10, freq="D")
     lat = [0.0, 1.0]
     lon = [0.0, 1.0]
@@ -27,7 +27,7 @@ def test_data_preparation_malla():
         coords={"date": dates, "lat": lat, "lon": lon}
     )
 
-    acc = data_preparation_malla(ds, acc_time=5)
+    acc = data_preparation_grid(ds, acc_time=5)
 
     assert np.isnan(acc.value.isel(date=0)).all()
 
@@ -93,10 +93,10 @@ def test_compute_monthly_params_gamma():
 
 
 # ------------------------------------------------------------------
-# SPI MALLA
+# SPI GRID
 # ------------------------------------------------------------------
 
-def test_calculate_spi_malla():
+def test_calculate_spi_grid():
     dates = pd.date_range("2000-01-01", periods=12, freq="M")
     lat = [0.0]
     lon = [0.0]
@@ -118,17 +118,17 @@ def test_calculate_spi_malla():
         coords={"lat": lat, "lon": lon}
     )
 
-    spi = calculate_spi_malla(data, "gamma", params)
+    spi = calculate_spi_grid(data, "gamma", params)
 
     assert "SPI" in spi
     assert np.all(np.isfinite(spi["SPI"].values))
 
 
 # ------------------------------------------------------------------
-# SPEI MALLA
+# SPEI GRID
 # ------------------------------------------------------------------
 
-def test_calculate_spei_malla_GM():
+def test_calculate_spei_grid_GM():
     dates = pd.date_range("2000-01-01", periods=12, freq="M")
     lat = [0.0]
     lon = [0.0]
@@ -153,7 +153,7 @@ def test_calculate_spei_malla_GM():
         }
     )
 
-    spei = calculate_spei_malla(data, "GaussianMixture", params)
+    spei = calculate_spei_grid(data, "GaussianMixture", params)
 
     assert "SPEI" in spei
     assert np.all(np.isfinite(spei["SPEI"].values))

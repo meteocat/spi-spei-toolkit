@@ -100,16 +100,21 @@ def create_logger(
     log_file: str, log_name: str, when="midnight", interval=1, backup_count=8
 ):
     """
-    Crea un logger amb rotació diària a les 00:00
-    i còpies numerades:
-        .log → .log.0 → .log.1 → ... fins a backup_count
+    Create a logger with time-based rotation and multiprocessing support.
+
+    Log files are rotated at a specified interval (default: midnight)
+    and stored with numeric suffixes:
+        .log → .log.0 → .log.1 → ... up to backup_count
 
     Args:
-        log_file (str): Path del fitxer de log principal.
-        log_name (str): Nom del logger.
-        when (str): Quan es fa la rotació (per defecte midnight).
-        interval (int): Interval de la rotació (per defecte 1).
-        backup_count (int): Nombre de còpies (per defecte 8).
+        log_file (str): Path to the main log file.
+        log_name (str): Logger name.
+        when (str): Rotation interval type (default: "midnight").
+        interval (int): Rotation interval (default: 1).
+        backup_count (int): Number of backup files to keep (default: 8).
+
+    Returns:
+        logging.Logger: Configured logger instance.
     """
 
     if log_name in _loggers:
@@ -119,10 +124,9 @@ def create_logger(
 
     logger = logging.getLogger(log_name)
     logger.setLevel(logging.DEBUG)
-    logger.handlers.clear()  # Netejar handlers previs
+    logger.handlers.clear()  
     logger.propagate = False
 
-    # Crear la cua
     _log_queues[log_name] = Queue(-1)
 
 
@@ -142,7 +146,6 @@ def create_logger(
     handler.addFilter(ContextFilter())
     handler.setFormatter(formatter)
 
-    # Crear listener que escriu des de la cua
     _queue_listener = QueueListener(
         _log_queues[log_name], handler, respect_handler_level=True
     )
@@ -150,22 +153,22 @@ def create_logger(
 
     _queue_listeners[log_name] = _queue_listener
 
-    # Assegurar que el listener s'atura en sortir
     atexit.register(_queue_listener.stop)
 
-    # Tots els processos (principal i fills) usen QueueHandler
     queue_handler = QueueHandler(_log_queues[log_name])
     logger.addHandler(queue_handler)
     
-    # Register logger
     _loggers[log_name] = logger
 
     return logger
 
 
 def stop_logger_listener():
-    """Atura el listener de logs. Cridar això al final del programa principal."""
-    
+    """
+    Stop all active log listeners.
+
+    This should be called at the end of the main program.
+    """    
     for name, listener in list(_queue_listeners.items()):
         try:
             listener.stop()
