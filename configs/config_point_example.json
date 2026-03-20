@@ -1,0 +1,16 @@
+{
+"indices":[1,3,6,9,12,18,24,36],
+"code":"station_code",
+"start_date":"YYYYmmdd",
+"final_date":"YYYYmmdd",
+"distribution_name":{"SPEI":"GaussianMixture","SPI":"gamma"},
+"ref_params_period":"2000-2020",
+"index_plot":"True",
+"figure_size":["width","height"],
+"workdir":"/path/to/workdir",
+"figures_dir":"/data/DevRECERCA/SPEI/figures/estacions",
+"ppt_file":"/path/to/ppt_dir/{year}/{month}/ppt_{date}.nc",
+"eto_file":"/path/to/eto_dir/{year}/{month}/eto_{date}.nc",
+"params_dir":"/path/to/parameters",
+"log_dir":"/path/to/logs"
+}
